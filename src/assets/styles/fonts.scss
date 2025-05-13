@@ -1,12 +1,50 @@
+@font-face {
+  font-family: 'Archeologicaps';
+  src: url('../fonts/Archeologicaps.ttf');
+}
+
+.h1-logo {
+  font-family: Archeologicaps;
+  font-weight: 500;
+  font-size: 24px;
+  line-height: 36px;
+  text-indent: 5px;
+  vertical-align: middle;
+  color: #fff;
+  margin: 0;
+}
+
+.h2-logo {
+  font-family: Archeologicaps;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 21px;
+  text-indent: 5px;
+  vertical-align: middle;
+  color: #fff;
+  margin: 0;
+}
+
+.h3-logo {
+  font-family: Archeologicaps;
+  font-weight: 500;
+  font-size: 10px;
+  line-height: 15px;
+  text-indent: 5px;
+  vertical-align: middle;
+  color: #fff;
+  margin: 0;
+}
+
 .h1-forum {
   font-family: Forum;
   font-weight: 400;
   font-size: 80px;
   line-height: 120px;
-  letter-spacing: 7%;
   text-align: center;
   vertical-align: middle;
   text-transform: uppercase;
+  margin: 0;
 }
 
 .h2-forum {
@@ -14,10 +52,10 @@
   font-weight: 400;
   font-size: 64px;
   line-height: 96px;
-  letter-spacing: 7%;
   text-align: center;
   vertical-align: middle;
   text-transform: uppercase;
+  margin: 0;
 }
 
 .h3-forum {
@@ -25,9 +63,21 @@
   font-weight: 400;
   font-size: 42px;
   line-height: 54px;
-  letter-spacing: 7%;
   text-align: center;
   text-transform: uppercase;
+  margin: 0;
+}
+
+.link-forum {
+  font-family: Forum;
+  font-weight: 400;
+  font-size: 30px;
+  line-height: 45px;
+  text-align: center;
+  vertical-align: middle;
+  margin: 0;
+  color: $text-color-primary;
+  text-decoration: none;
 }
 
 .p1-raleway {
@@ -35,9 +85,9 @@
   font-weight: 400;
   font-size: 30px;
   line-height: 45px;
-  letter-spacing: 7%;
   text-align: center;
   vertical-align: middle;
+  margin: 0;
 }
 
 .p2-raleway {
@@ -45,9 +95,9 @@
   font-weight: 400;
   font-size: 24px;
   line-height: 36px;
-  letter-spacing: 7%;
   text-align: center;
   vertical-align: middle;
+  margin: 0;
 }
 
 .p3-raleway {
@@ -55,6 +105,6 @@
   font-weight: 400;
   font-size: 18px;
   line-height: 27px;
-  letter-spacing: 7%;
   text-align: center;
+  margin: 0;
 }
