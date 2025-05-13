@@ -1,0 +1,11 @@
+body {
+  margin: 0;
+  width: 100vw;
+  min-height: 100vh;
+}
+
+*,
+*::after,
+*::before {
+  box-sizing: border-box;
+}
