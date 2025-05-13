@@ -8,10 +8,10 @@ const $route = useRoute()
 
 const adsStyle = computed(() => {
   if ($route.name === 'home') {
-    return { backgroundImage: "url('/src/assets/images/backgrounds/MainPage.png')" }
+    return { backgroundImage: "url('/src/assets/images/backgrounds/MainPage.webp')" }
   }
   if ($route.name === 'catalog') {
-    return { backgroundImage: "url('/src/assets/images/backgrounds/Catalog.png')" }
+    return { backgroundImage: "url('/src/assets/images/backgrounds/Catalog.webp')" }
   }
   return null
 })

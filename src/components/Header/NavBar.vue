@@ -1,8 +1,18 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, watch } from 'vue'
+import { useRoute } from 'vue-router'
 import tabs from '@/constants/tabs'
 
 const isTabsOpened = ref(false)
+
+const $route = useRoute()
+
+watch(
+  () => $route.fullPath,
+  () => {
+    isTabsOpened.value = false
+  }
+)
 </script>
 
 <template>
@@ -14,34 +24,47 @@ const isTabsOpened = ref(false)
       style="cursor: pointer"
       @click="isTabsOpened = true"
     />
-    <ul v-show="isTabsOpened" class="nav-bar-items">
-      <li @click="isTabsOpened = false"><img src="@/assets/icons/chevron-up.svg" /></li>
-      <li v-for="tab in tabs" :key="tab.link">
-        <router-link :to="tab.link" class="link-forum">{{ tab.title }}</router-link>
-      </li>
-    </ul>
+
+    <transition name="fade-down">
+      <ul v-show="isTabsOpened" class="nav-bar-items">
+        <li @click="isTabsOpened = false"><img src="@/assets/icons/chevron-up.svg" /></li>
+        <li v-for="tab in tabs" :key="tab.link">
+          <router-link :to="tab.link" class="link-forum">{{ tab.title }}</router-link>
+        </li>
+      </ul>
+    </transition>
   </nav>
 </template>
 
 <style scoped lang="scss">
 .nav-bar {
   position: relative;
-  z-index: 100;
+
+  &-items {
+    padding: 41px 110px;
+    margin: 0;
+    margin-top: 308px;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 56px;
+    align-items: center;
+    background-color: $bg-color-primary;
+  }
+
+  &-items * {
+    cursor: pointer;
+  }
 }
 
-.nav-bar-items {
-  padding: 41px 110px;
-  margin: 0;
-  margin-top: 308px;
-  list-style: none;
-  display: flex;
-  flex-direction: column;
-  gap: 56px;
-  align-items: center;
-  background-color: $bg-color-primary;
+.fade-down-enter-active,
+.fade-down-leave-active {
+  transition: all 0.3s ease;
 }
 
-.nav-bar-items * {
-  cursor: pointer;
+.fade-down-enter-from,
+.fade-down-leave-to {
+  opacity: 0;
+  transform: translateY(-10px);
 }
 </style>
