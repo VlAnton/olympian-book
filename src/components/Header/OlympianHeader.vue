@@ -32,15 +32,15 @@ const adText = computed(() => {
     <header :class="$style.header">
       <h1 class="h1-logo">Olympian<br />Books</h1>
       <nav-bar />
-      <router-link to="basket">
-        <img src="@/assets/icons/basket.svg" />
+      <router-link to="cart">
+        <img src="@/assets/icons/cart.svg" />
       </router-link>
     </header>
     <div v-if="adsStyle" :class="$style.ad">
       <h1 class="h1-forum" :class="$style['ad-books-promo']">
         {{ adText }}
       </h1>
-      <olympian-button style="width: 420px" @click="$router.push('/catalog')">
+      <olympian-button style="width: 420px" size="lg" @click="$router.push('/catalog')">
         Узнать больше
       </olympian-button>
     </div>

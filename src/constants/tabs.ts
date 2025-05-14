@@ -9,6 +9,6 @@ export default [
   },
   {
     title: 'Корзина',
-    link: '/basket',
+    link: '/cart',
   },
 ]

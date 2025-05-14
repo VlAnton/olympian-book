@@ -3,6 +3,7 @@ import { computed, defineProps, ref, onMounted, onBeforeUnmount } from 'vue'
 
 type ButtonProps = {
   color?: 'black' | 'white'
+  size: 'lg' | 'md'
   disabled?: boolean
 }
 
@@ -19,6 +20,17 @@ onMounted(() => {
 
 onBeforeUnmount(() => {
   window.removeEventListener('pointerup', handlePointerUp)
+})
+
+const sizeStyles = computed(() => {
+  switch (props.size) {
+    case 'lg':
+      return { height: '75px' }
+    case 'md':
+      return { height: '50px' }
+    default:
+      return {}
+  }
 })
 
 const borderColor = computed(() => {
@@ -46,9 +58,13 @@ const textColor = computed(() => {
   <button
     :class="[
       $style.button,
-      { [$style['button-black-pressed']]: isMouseDown && props.color === 'black' },
+      {
+        [$style['button-black-pressed']]: isMouseDown && props.color === 'black',
+        'button-forum-md': props.size === 'md',
+        'button-forum-lg': props.size === 'lg',
+      },
     ]"
-    class="button-forum"
+    :style="sizeStyles"
     :disabled="props.disabled"
     @mousedown="isMouseDown = true"
   >
@@ -58,6 +74,7 @@ const textColor = computed(() => {
 
 <style lang="scss" module>
 .button {
+  padding: 0 25px;
   border: v-bind(borderColor);
   color: v-bind(textColor);
   background-color: transparent;

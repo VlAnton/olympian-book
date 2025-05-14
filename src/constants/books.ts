@@ -1,0 +1,92 @@
+export default [
+  {
+    cover: '/src/assets/images/books/Bradberry.jpg',
+    title: 'Р. Брэдбери. Вино из одуванчиков',
+    genre: 'Современная проза',
+    price: 159,
+  },
+  {
+    cover: '/src/assets/images/books/Bulgakov.jpg',
+    title: 'М. Булгаков. Мастер и Маргарита',
+    genre: 'Классика',
+    price: 159,
+  },
+  {
+    cover: '/src/assets/images/books/Caroll.jpg',
+    title: 'Л. Кэролл. Алиса в Стране Чудес и в Зазеркалье',
+    genre: 'Сказки',
+    price: 159,
+  },
+  {
+    cover: '/src/assets/images/books/Dafoe.jpg',
+    title: 'Д. Дэфо. Робинзон Крузо',
+    genre: 'Приключения',
+    price: 159,
+  },
+  {
+    cover: '/src/assets/images/books/Dante.jpg',
+    title: 'Д. Алигьери. Божественная комедия',
+    genre: 'Классика',
+    price: 159,
+  },
+  {
+    cover: '/src/assets/images/books/Duma.jpg',
+    title: 'А. Дюма. Три мушкетёра',
+    genre: 'Классика',
+    price: 159,
+  },
+  {
+    cover: '/src/assets/images/books/Gogol.jpg',
+    title: 'Н. Гоголь. Мёртвые души',
+    genre: 'Классика',
+    price: 159,
+  },
+  {
+    cover: '/src/assets/images/books/Goncharov.jpg',
+    title: 'И. Гончаров. Обломов',
+    genre: 'Классика',
+    price: 159,
+  },
+  {
+    cover: '/src/assets/images/books/Green.jpg',
+    title: 'А. Грин. Алые паруса',
+    genre: 'Классика',
+    price: 159,
+  },
+  {
+    cover: '/src/assets/images/books/Gugo.jpg',
+    title: 'В. Гюго. Собор парижской богоматери',
+    genre: 'Классика',
+    price: 159,
+  },
+  {
+    cover: '/src/assets/images/books/Homer.jpg',
+    title: 'Гомер. Иллиада',
+    genre: 'Эпос и фольклор',
+    price: 159,
+  },
+  {
+    cover: '/src/assets/images/books/Kun.jpg',
+    title: 'Н. Кун. Легенды и мифы Древней Греции',
+    genre: 'Эпос и фольклор',
+    price: 159,
+  },
+  {
+    cover: '/src/assets/images/books/Pushkin.jpg',
+    title: 'А. Пушкин. Евгений Онегин',
+    genre: 'Классика',
+    price: 159,
+  },
+  {
+    cover: '/src/assets/images/books/Vern.jpg',
+    title: 'Ж. Верн. Двадцать тысяч лье под водой',
+    genre: 'Приключения',
+    price: 159,
+  },
+  {
+    cover: '/src/assets/images/books/Wild.jpg',
+    title: 'О. Уайлд. Портрет Дориана Грея',
+    genre: 'Классика',
+    price: 159,
+  },
+]
