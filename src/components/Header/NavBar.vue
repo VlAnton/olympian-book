@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import { ref, watch, defineProps } from 'vue'
+import { ref, computed, watch, defineProps } from 'vue'
 import { useRoute } from 'vue-router'
 import tabs from '@/constants/tabs'
 
 type NavBarProps = {
-  iconClass?: string
+  windowWidth: number
 }
 
 const props = defineProps<NavBarProps>()
@@ -19,6 +19,16 @@ watch(
     isTabsOpened.value = false
   }
 )
+
+const iconClass = computed(() => {
+  if (props.windowWidth <= 525) {
+    return 'nav-bar-icon-sm'
+  }
+  if (props.windowWidth <= 929) {
+    return 'nav-bar-icon-md'
+  }
+  return ''
+})
 </script>
 
 <template>
@@ -27,15 +37,28 @@ watch(
       v-show="!isTabsOpened"
       src="@/assets/icons/chevron-down.svg"
       class="nav-bar-icon"
-      :class="props.iconClass"
+      :class="iconClass"
       @click="isTabsOpened = true"
     />
 
     <transition name="fade-down">
       <ul v-show="isTabsOpened" class="nav-bar-items">
-        <li @click="isTabsOpened = false"><img src="@/assets/icons/chevron-up.svg" /></li>
+        <li @click="isTabsOpened = false">
+          <img class="nav-bar-icon" :class="iconClass" src="@/assets/icons/chevron-up.svg" />
+        </li>
         <li v-for="tab in tabs" :key="tab.link">
-          <router-link :to="tab.link" class="link-forum">{{ tab.title }}</router-link>
+          <router-link
+            :to="tab.link"
+            :class="[
+              'link-forum-lg',
+              {
+                'link-forum-md': windowWidth <= 929,
+                'link-forum-sm': windowWidth <= 525,
+              },
+            ]"
+          >
+            {{ tab.title }}
+          </router-link>
         </li>
       </ul>
     </transition>
@@ -56,23 +79,36 @@ watch(
     gap: 56px;
     align-items: center;
     background-color: $bg-color-primary;
+
+    @media screen and (max-width: 929px) {
+      & {
+        padding: 57px 70px 70px;
+        margin-top: 274px;
+      }
+    }
+    @media screen and (max-width: 525px) {
+      & {
+        padding: 63px 65px 70px;
+        margin-top: 280px;
+      }
+    }
   }
 
   &-items * {
     cursor: pointer;
   }
 
-  &-logo {
+  &-icon {
     cursor: pointer;
 
     &-md {
-      width: 32;
-      height: 9;
+      width: 32px;
+      height: 9px;
     }
 
     &-sm {
-      width: 40;
-      height: 12;
+      width: 40px;
+      height: 12px;
     }
   }
 }

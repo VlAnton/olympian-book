@@ -19,7 +19,7 @@ const adsStyle = computed(() => {
   if ($route.name === 'catalog') {
     return { backgroundImage: "url('/src/assets/images/backgrounds/Catalog.webp')" }
   }
-  return null
+  return { backgroundColor: '#1596c1' }
 })
 
 const adText = computed(() => {
@@ -33,7 +33,7 @@ const adText = computed(() => {
 })
 
 const btnSize = computed(() => {
-  if (windowWidth.value <= 477) {
+  if (windowWidth.value <= 525) {
     return 'md'
   }
   return 'lg'
@@ -51,16 +51,6 @@ const btnStyle = computed(() => {
   }
 })
 
-const iconClass = computed(() => {
-  if (windowWidth.value <= 477) {
-    return 'nav-bar-icon-sm'
-  }
-  if (windowWidth.value <= 929) {
-    return 'nav-bar-icon-md'
-  }
-  return ''
-})
-
 onMounted(() => {
   window.addEventListener('resize', updateWindowWidth)
 })
@@ -76,14 +66,14 @@ onBeforeUnmount(() => {
         :class="{
           'h1-logo': windowWidth > 929,
           'h2-logo': windowWidth <= 929,
-          'h3-logo': windowWidth <= 477,
+          'h3-logo': windowWidth <= 525,
         }"
       >
         Olympian<br />Books
       </h1>
-      <nav-bar :icon-class="iconClass" />
+      <nav-bar :window-width="windowWidth" />
       <router-link to="cart">
-        <img src="@/assets/icons/cart.svg" />
+        <img :class="$style['cart-icon']" src="@/assets/icons/cart.svg" />
       </router-link>
     </header>
     <div v-if="adsStyle" :class="$style.ad">
@@ -93,7 +83,7 @@ onBeforeUnmount(() => {
           {
             'h1-forum': windowWidth > 929,
             'h2-forum': windowWidth <= 929,
-            'h3-forum': windowWidth <= 477,
+            'h3-forum': windowWidth <= 525,
             [$style['ad-books-promo-ipad-mini']]: windowWidth <= 929,
             [$style['ad-books-promo-iphone-se']]: windowWidth <= 380,
           },
@@ -106,7 +96,7 @@ onBeforeUnmount(() => {
         :style="btnStyle"
         :class="{
           'button-forum-md': windowWidth <= 929,
-          'button-forum-sm': windowWidth <= 477,
+          'button-forum-sm': windowWidth <= 525,
         }"
         :size="btnSize"
         @click="$router.push('/catalog')"
@@ -126,6 +116,7 @@ onBeforeUnmount(() => {
   flex-direction: column;
   gap: 20px;
   width: 100vw;
+  height: 940px;
 
   .header {
     display: flex;
@@ -133,12 +124,15 @@ onBeforeUnmount(() => {
     align-items: center;
     justify-content: space-between;
     padding: 0 70px;
+
+    .cart-icon {
+      height: 64px;
+    }
   }
 
   .ad {
     padding: 0 70px;
     width: 100%;
-    height: 940px;
 
     display: flex;
     flex-direction: column;
@@ -155,26 +149,45 @@ onBeforeUnmount(() => {
 }
 
 @media screen and (max-width: 929px) {
+  .header-wrapper {
+    background-position: 62% !important;
+    height: 820px !important;
+    gap: 10px;
+  }
   .header {
+    height: 50px !important;
     padding: 0 34px !important;
+  }
+  .cart-icon {
+    height: 32px !important;
   }
   .ad {
     padding: 0 34px !important;
 
     &-books-promo {
-      width: 460px !important;
+      height: 400px !important;
+      width: 461px !important;
     }
   }
 }
-@media screen and (max-width: 477px) {
+@media screen and (max-width: 525px) {
+  .header-wrapper {
+    background-position: 54% !important;
+    height: 590px !important;
+  }
   .header {
     padding: 0 15px !important;
   }
+  .cart-icon {
+    height: 40px !important;
+  }
   .ad {
     padding: 15px !important;
+    gap: 10px !important;
 
     &-books-promo {
       width: 187px !important;
+      height: 290px !important;
     }
   }
 }
