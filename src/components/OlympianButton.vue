@@ -3,7 +3,7 @@ import { computed, defineProps, ref, onMounted, onBeforeUnmount } from 'vue'
 
 type ButtonProps = {
   color?: 'black' | 'white'
-  size: 'lg' | 'md'
+  size: 'lg' | 'md' | 'sm'
   disabled?: boolean
 }
 

@@ -24,7 +24,7 @@ const cardsPerSlide = computed(() => {
   if (windowWidth.value >= 1013) return 2
   return 1
 })
-
+const showDots = computed(() => windowWidth.value > 1024)
 const totalSlides = computed(() => Math.ceil(props.items.length / cardsPerSlide.value))
 
 function nextSlide() {
@@ -77,7 +77,7 @@ onBeforeUnmount(() => {
       <div class="slider-chevron-wrapper">
         <img v-show="currentSlide > 0" src="@/assets/icons/chevron-left.svg" @click="prevSlide" />
       </div>
-      <div class="dots">
+      <div v-if="showDots" class="dots">
         <span
           v-for="(_, index) in totalSlides"
           :key="index"
@@ -102,6 +102,7 @@ onBeforeUnmount(() => {
   flex-direction: column;
   align-items: center;
   gap: 40px;
+  max-width: 100vw;
 
   &-window {
     width: 100%;

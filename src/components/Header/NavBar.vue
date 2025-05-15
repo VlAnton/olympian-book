@@ -1,7 +1,13 @@
 <script setup lang="ts">
-import { ref, watch } from 'vue'
+import { ref, watch, defineProps } from 'vue'
 import { useRoute } from 'vue-router'
 import tabs from '@/constants/tabs'
+
+type NavBarProps = {
+  iconClass?: string
+}
+
+const props = defineProps<NavBarProps>()
 
 const isTabsOpened = ref(false)
 
@@ -20,8 +26,8 @@ watch(
     <img
       v-show="!isTabsOpened"
       src="@/assets/icons/chevron-down.svg"
-      class="logo"
-      style="cursor: pointer"
+      class="nav-bar-icon"
+      :class="props.iconClass"
       @click="isTabsOpened = true"
     />
 
@@ -54,6 +60,20 @@ watch(
 
   &-items * {
     cursor: pointer;
+  }
+
+  &-logo {
+    cursor: pointer;
+
+    &-md {
+      width: 32;
+      height: 9;
+    }
+
+    &-sm {
+      width: 40;
+      height: 12;
+    }
   }
 }
 

@@ -63,6 +63,7 @@ const onClick = () => {
   &-price {
     width: 100%;
     height: 100%;
+    align-content: center;
   }
 }
 </style>

@@ -1,10 +1,16 @@
 <script setup lang="ts">
-import { computed } from 'vue'
+import { ref, computed, onMounted, onBeforeUnmount } from 'vue'
 import { useRoute } from 'vue-router'
 import NavBar from '@/components/Header/NavBar.vue'
 import OlympianButton from '../OlympianButton.vue'
 
 const $route = useRoute()
+
+const windowWidth = ref(window.innerWidth)
+
+function updateWindowWidth() {
+  windowWidth.value = window.innerWidth
+}
 
 const adsStyle = computed(() => {
   if ($route.name === 'home') {
@@ -25,22 +31,79 @@ const adText = computed(() => {
   }
   return ''
 })
+
+const btnSize = computed(() => {
+  if (windowWidth.value <= 375) {
+    return 'md'
+  }
+  return 'lg'
+})
+
+const btnWidth = computed(() => {
+  if (windowWidth.value <= 375) {
+    return '215px'
+  }
+  if (windowWidth.value <= 768) {
+    return '220px'
+  }
+  return '420px'
+})
+
+const iconClass = computed(() => {
+  if (windowWidth.value <= 375) {
+    return 'nav-bar-icon-sm'
+  }
+  if (windowWidth.value <= 768) {
+    return 'nav-bar-icon-md'
+  }
+  return ''
+})
+
+onMounted(() => {
+  window.addEventListener('resize', updateWindowWidth)
+})
+onBeforeUnmount(() => {
+  window.removeEventListener('resize', updateWindowWidth)
+})
 </script>
 
 <template>
   <div :class="$style['header-wrapper']" :style="adsStyle">
     <header :class="$style.header">
-      <h1 class="h1-logo">Olympian<br />Books</h1>
-      <nav-bar />
+      <h1
+        :class="{
+          'h1-logo': windowWidth > 768,
+          'h2-logo': windowWidth <= 768,
+          'h3-logo': windowWidth <= 375,
+        }"
+      >
+        Olympian<br />Books
+      </h1>
+      <nav-bar :icon-class="iconClass" />
       <router-link to="cart">
         <img src="@/assets/icons/cart.svg" />
       </router-link>
     </header>
     <div v-if="adsStyle" :class="$style.ad">
-      <h1 class="h1-forum" :class="$style['ad-books-promo']">
+      <h1
+        :class="[
+          $style['ad-books-promo'],
+          {
+            'h1-forum': windowWidth > 768,
+            'h2-forum': windowWidth <= 768,
+            'h3-forum': windowWidth <= 375,
+            [$style['ad-books-promo-ipad-mini']]: windowWidth <= 768,
+            [$style['ad-books-promo-iphone-se']]: windowWidth <= 375,
+          },
+        ]"
+      >
         {{ adText }}
       </h1>
-      <olympian-button style="width: 420px" size="lg" @click="$router.push('/catalog')">
+      <olympian-button
+        :style="{ width: btnWidth }"
+        :size="btnSize"
+        @click="$router.push('/catalog')"
+      >
         Узнать больше
       </olympian-button>
     </div>
@@ -55,6 +118,7 @@ const adText = computed(() => {
   display: flex;
   flex-direction: column;
   gap: 20px;
+  width: 100vw;
 
   .header {
     display: flex;
@@ -79,6 +143,13 @@ const adText = computed(() => {
       height: 460px;
       align-content: center;
       text-align: left;
+
+      &-ipad-mini {
+        width: 460px;
+      }
+      &-iphone-se {
+        width: 265px;
+      }
     }
   }
 }
