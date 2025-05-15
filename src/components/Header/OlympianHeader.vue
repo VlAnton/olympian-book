@@ -33,27 +33,29 @@ const adText = computed(() => {
 })
 
 const btnSize = computed(() => {
-  if (windowWidth.value <= 375) {
+  if (windowWidth.value <= 477) {
     return 'md'
   }
   return 'lg'
 })
 
-const btnWidth = computed(() => {
-  if (windowWidth.value <= 375) {
-    return '215px'
+const btnStyle = computed(() => {
+  if (windowWidth.value <= 929) {
+    return {
+      width: '245px',
+      height: '50px',
+    }
   }
-  if (windowWidth.value <= 768) {
-    return '220px'
+  return {
+    width: '420px',
   }
-  return '420px'
 })
 
 const iconClass = computed(() => {
-  if (windowWidth.value <= 375) {
+  if (windowWidth.value <= 477) {
     return 'nav-bar-icon-sm'
   }
-  if (windowWidth.value <= 768) {
+  if (windowWidth.value <= 929) {
     return 'nav-bar-icon-md'
   }
   return ''
@@ -72,9 +74,9 @@ onBeforeUnmount(() => {
     <header :class="$style.header">
       <h1
         :class="{
-          'h1-logo': windowWidth > 768,
-          'h2-logo': windowWidth <= 768,
-          'h3-logo': windowWidth <= 375,
+          'h1-logo': windowWidth > 929,
+          'h2-logo': windowWidth <= 929,
+          'h3-logo': windowWidth <= 477,
         }"
       >
         Olympian<br />Books
@@ -89,18 +91,23 @@ onBeforeUnmount(() => {
         :class="[
           $style['ad-books-promo'],
           {
-            'h1-forum': windowWidth > 768,
-            'h2-forum': windowWidth <= 768,
-            'h3-forum': windowWidth <= 375,
-            [$style['ad-books-promo-ipad-mini']]: windowWidth <= 768,
-            [$style['ad-books-promo-iphone-se']]: windowWidth <= 375,
+            'h1-forum': windowWidth > 929,
+            'h2-forum': windowWidth <= 929,
+            'h3-forum': windowWidth <= 477,
+            [$style['ad-books-promo-ipad-mini']]: windowWidth <= 929,
+            [$style['ad-books-promo-iphone-se']]: windowWidth <= 380,
           },
         ]"
       >
         {{ adText }}
       </h1>
       <olympian-button
-        :style="{ width: btnWidth }"
+        class="button-forum-lg"
+        :style="btnStyle"
+        :class="{
+          'button-forum-md': windowWidth <= 929,
+          'button-forum-sm': windowWidth <= 477,
+        }"
         :size="btnSize"
         @click="$router.push('/catalog')"
       >
@@ -143,13 +150,31 @@ onBeforeUnmount(() => {
       height: 460px;
       align-content: center;
       text-align: left;
+    }
+  }
+}
 
-      &-ipad-mini {
-        width: 460px;
-      }
-      &-iphone-se {
-        width: 265px;
-      }
+@media screen and (max-width: 929px) {
+  .header {
+    padding: 0 34px !important;
+  }
+  .ad {
+    padding: 0 34px !important;
+
+    &-books-promo {
+      width: 460px !important;
+    }
+  }
+}
+@media screen and (max-width: 477px) {
+  .header {
+    padding: 0 15px !important;
+  }
+  .ad {
+    padding: 15px !important;
+
+    &-books-promo {
+      width: 187px !important;
     }
   }
 }
