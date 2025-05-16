@@ -76,6 +76,7 @@ const iconClass = computed(() => {
       margin-top: 274px;
     }
     @media screen and (max-width: 525px) {
+      width: 240px;
       padding: 63px 65px 70px;
       margin-top: 280px;
     }
