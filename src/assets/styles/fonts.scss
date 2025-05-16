@@ -58,26 +58,62 @@
   vertical-align: middle;
   text-transform: uppercase;
   margin: 0;
+  letter-spacing: 4.5px;
 }
 
 .h3-forum {
   font-family: Forum;
   font-weight: 400;
-  font-size: 42px;
-  line-height: 54px;
+  font-size: 40px;
+  line-height: 60px;
   text-align: center;
   text-transform: uppercase;
   margin: 0;
+  letter-spacing: 2.8px;
 }
 
-.link-forum {
+.h4-forum {
   font-family: Forum;
   font-weight: 400;
   font-size: 30px;
   line-height: 45px;
+  letter-spacing: 2.1px;
+  text-align: center;
+  vertical-align: middle;
+  text-transform: uppercase;
+}
+
+.link-forum-lg {
+  font-family: Forum;
+  font-weight: 400;
+  font-size: 30px;
+  line-height: 45px;
+  letter-spacing: 2.1px;
   text-align: center;
   vertical-align: middle;
   margin: 0;
+  color: $text-color-primary;
+  text-decoration: none;
+}
+.link-forum-md {
+  font-family: Forum;
+  font-weight: 400;
+  font-size: 22px;
+  line-height: 33px;
+  letter-spacing: 1.5px;
+  text-align: center;
+  vertical-align: middle;
+  color: $text-color-primary;
+  text-decoration: none;
+}
+.link-forum-sm {
+  font-family: Forum;
+  font-weight: 400;
+  font-size: 22px;
+  line-height: 33px;
+  letter-spacing: 1.5px;
+  text-align: center;
+  vertical-align: middle;
   color: $text-color-primary;
   text-decoration: none;
 }
@@ -97,9 +133,9 @@
 .button-forum-md {
   font-family: Forum;
   font-weight: 400;
-  font-size: 30px;
-  line-height: 45px;
-  letter-spacing: 7%;
+  font-size: 24px;
+  line-height: 36px;
+  letter-spacing: 1.7px;
   text-align: center;
   vertical-align: middle;
   text-transform: uppercase;
@@ -110,7 +146,7 @@
   font-weight: 400;
   font-size: 24px;
   line-height: 36px;
-  letter-spacing: 2.1px;
+  letter-spacing: 1.7px;
   text-align: center;
   vertical-align: middle;
   text-transform: uppercase;
@@ -145,4 +181,14 @@
   line-height: 27px;
   text-align: center;
   margin: 0;
+}
+
+.p4-raleway {
+  font-family: Raleway;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 21px;
+  letter-spacing: 1px;
+  text-align: center;
+  vertical-align: middle;
 }

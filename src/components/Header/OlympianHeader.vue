@@ -1,10 +1,16 @@
 <script setup lang="ts">
-import { computed } from 'vue'
+import { ref, computed, onMounted, onBeforeUnmount } from 'vue'
 import { useRoute } from 'vue-router'
 import NavBar from '@/components/Header/NavBar.vue'
 import OlympianButton from '../OlympianButton.vue'
 
 const $route = useRoute()
+
+const windowWidth = ref(window.innerWidth)
+
+function updateWindowWidth() {
+  windowWidth.value = window.innerWidth
+}
 
 const adsStyle = computed(() => {
   if ($route.name === 'home') {
@@ -13,7 +19,7 @@ const adsStyle = computed(() => {
   if ($route.name === 'catalog') {
     return { backgroundImage: "url('/src/assets/images/backgrounds/Catalog.webp')" }
   }
-  return null
+  return { backgroundColor: '#1596c1' }
 })
 
 const adText = computed(() => {
@@ -25,22 +31,76 @@ const adText = computed(() => {
   }
   return ''
 })
+
+const btnSize = computed(() => {
+  if (windowWidth.value <= 525) {
+    return 'md'
+  }
+  return 'lg'
+})
+
+const btnStyle = computed(() => {
+  if (windowWidth.value <= 929) {
+    return {
+      width: '245px',
+      height: '50px',
+    }
+  }
+  return {
+    width: '420px',
+  }
+})
+
+onMounted(() => {
+  window.addEventListener('resize', updateWindowWidth)
+})
+onBeforeUnmount(() => {
+  window.removeEventListener('resize', updateWindowWidth)
+})
 </script>
 
 <template>
   <div :class="$style['header-wrapper']" :style="adsStyle">
     <header :class="$style.header">
-      <h1 class="h1-logo">Olympian<br />Books</h1>
-      <nav-bar />
+      <h1
+        :class="{
+          'h1-logo': windowWidth > 929,
+          'h2-logo': windowWidth <= 929,
+          'h3-logo': windowWidth <= 525,
+        }"
+      >
+        Olympian<br />Books
+      </h1>
+      <nav-bar :window-width="windowWidth" />
       <router-link to="cart">
-        <img src="@/assets/icons/cart.svg" />
+        <img :class="$style['cart-icon']" src="@/assets/icons/cart.svg" />
       </router-link>
     </header>
     <div v-if="adsStyle" :class="$style.ad">
-      <h1 class="h1-forum" :class="$style['ad-books-promo']">
+      <h1
+        :class="[
+          $style['ad-books-promo'],
+          {
+            'h1-forum': windowWidth > 929,
+            'h2-forum': windowWidth <= 929,
+            'h3-forum': windowWidth <= 525,
+            [$style['ad-books-promo-ipad-mini']]: windowWidth <= 929,
+            [$style['ad-books-promo-iphone-se']]: windowWidth <= 380,
+          },
+        ]"
+      >
         {{ adText }}
       </h1>
-      <olympian-button style="width: 420px" size="lg" @click="$router.push('/catalog')">
+      <olympian-button
+        class="button-forum-lg"
+        :style="btnStyle"
+        :class="{
+          'button-forum-md': windowWidth <= 929,
+          'button-forum-sm': windowWidth <= 525,
+        }"
+        :size="btnSize"
+        @click="$router.push('/catalog')"
+      >
         Узнать больше
       </olympian-button>
     </div>
@@ -55,6 +115,8 @@ const adText = computed(() => {
   display: flex;
   flex-direction: column;
   gap: 20px;
+  width: 100vw;
+  height: 940px;
 
   .header {
     display: flex;
@@ -62,12 +124,15 @@ const adText = computed(() => {
     align-items: center;
     justify-content: space-between;
     padding: 0 70px;
+
+    .cart-icon {
+      height: 64px;
+    }
   }
 
   .ad {
     padding: 0 70px;
     width: 100%;
-    height: 940px;
 
     display: flex;
     flex-direction: column;
@@ -79,6 +144,50 @@ const adText = computed(() => {
       height: 460px;
       align-content: center;
       text-align: left;
+    }
+  }
+}
+
+@media screen and (max-width: 929px) {
+  .header-wrapper {
+    background-position: 62% !important;
+    height: 820px !important;
+    gap: 10px;
+  }
+  .header {
+    height: 50px !important;
+    padding: 0 34px !important;
+  }
+  .cart-icon {
+    height: 32px !important;
+  }
+  .ad {
+    padding: 0 34px !important;
+
+    &-books-promo {
+      height: 400px !important;
+      width: 461px !important;
+    }
+  }
+}
+@media screen and (max-width: 525px) {
+  .header-wrapper {
+    background-position: 54% !important;
+    height: 590px !important;
+  }
+  .header {
+    padding: 0 15px !important;
+  }
+  .cart-icon {
+    height: 40px !important;
+  }
+  .ad {
+    padding: 15px !important;
+    gap: 10px !important;
+
+    &-books-promo {
+      width: 187px !important;
+      height: 290px !important;
     }
   }
 }

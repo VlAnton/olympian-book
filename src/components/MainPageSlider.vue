@@ -1,30 +1,26 @@
 <script setup lang="ts">
 import type { BookItemCard } from '@/types/book-card'
-import { ref, computed, defineProps, onMounted, onBeforeUnmount } from 'vue'
+import { ref, computed, defineProps } from 'vue'
 import BookItem from './BookItem.vue'
 
 type MainPageSliderProps = {
   items: BookItemCard[]
+  windowWidth: number
 }
 
 const props = defineProps<MainPageSliderProps>()
 
 const currentSlide = ref(0)
-const windowWidth = ref(window.innerWidth)
-
-function updateWindowWidth() {
-  windowWidth.value = window.innerWidth
-}
+const showSliderControls = computed(() => props.windowWidth > 929 || props.windowWidth <= 525)
 
 const cardsPerSlide = computed(() => {
-  if (windowWidth.value >= 4000) return 8
-  if (windowWidth.value >= 3000) return 6
-  if (windowWidth.value >= 2000) return 4
-  if (windowWidth.value >= 1511) return 3
-  if (windowWidth.value >= 1013) return 2
+  if (props.windowWidth >= 3000) return 6
+  if (props.windowWidth >= 2000) return 4
+  if (props.windowWidth >= 1511) return 3
+  if (props.windowWidth >= 1013) return 2
   return 1
 })
-
+const showDots = computed(() => props.windowWidth > 1024)
 const totalSlides = computed(() => Math.ceil(props.items.length / cardsPerSlide.value))
 
 function nextSlide() {
@@ -42,18 +38,14 @@ function prevSlide() {
 function goToSlide(index: number) {
   currentSlide.value = index
 }
-
-onMounted(() => {
-  window.addEventListener('resize', updateWindowWidth)
-})
-onBeforeUnmount(() => {
-  window.removeEventListener('resize', updateWindowWidth)
-})
 </script>
 
 <template>
   <div class="slider">
     <div class="slider-window">
+      <div v-if="!showSliderControls" class="slider-chevron-wrapper absolute-left">
+        <img v-show="currentSlide > 0" src="@/assets/icons/chevron-left.svg" @click="prevSlide" />
+      </div>
       <div
         class="slider-track"
         :style="{
@@ -67,17 +59,23 @@ onBeforeUnmount(() => {
               index * cardsPerSlide + cardsPerSlide
             )"
             :key="book.title"
-            v-bind="book"
+            v-bind="{ windowWidth: props.windowWidth, ...book }"
           />
         </div>
       </div>
+      <div v-if="!showSliderControls" class="slider-chevron-wrapper absolute-right">
+        <img
+          v-if="currentSlide < totalSlides - 1"
+          src="@/assets/icons/chevron-right.svg"
+          @click="nextSlide"
+        />
+      </div>
     </div>
-
-    <div class="slider-controls">
+    <div v-if="showSliderControls" class="slider-controls">
       <div class="slider-chevron-wrapper">
         <img v-show="currentSlide > 0" src="@/assets/icons/chevron-left.svg" @click="prevSlide" />
       </div>
-      <div class="dots">
+      <div v-if="showDots" class="dots">
         <span
           v-for="(_, index) in totalSlides"
           :key="index"
@@ -102,10 +100,14 @@ onBeforeUnmount(() => {
   flex-direction: column;
   align-items: center;
   gap: 40px;
+  max-width: 100vw;
 
   &-window {
-    width: 100%;
+    width: calc(100% - 69px);
+    display: flex;
+    justify-content: center;
     overflow: hidden;
+    position: relative;
   }
 
   &-track {
@@ -130,10 +132,35 @@ onBeforeUnmount(() => {
     & img {
       cursor: pointer;
     }
+
+    @media screen and (max-width: 525px) {
+      gap: 138.6px;
+    }
   }
 
   &-chevron-wrapper {
     width: 15px;
+
+    &.absolute-left,
+    &.absolute-right {
+      position: absolute;
+      cursor: pointer;
+      top: 41%;
+      width: 28.5px;
+
+      & img {
+        height: 100px;
+        width: 28.5px;
+      }
+    }
+
+    &.absolute-left {
+      left: 96px;
+      z-index: 1;
+    }
+    &.absolute-right {
+      right: 96px;
+    }
   }
 
   .dots {

@@ -3,8 +3,9 @@ import { computed, defineProps, ref, onMounted, onBeforeUnmount } from 'vue'
 
 type ButtonProps = {
   color?: 'black' | 'white'
-  size: 'lg' | 'md'
+  size: 'lg' | 'md' | 'sm'
   disabled?: boolean
+  padding?: string
 }
 
 const props = defineProps<ButtonProps>()
@@ -31,6 +32,13 @@ const sizeStyles = computed(() => {
     default:
       return {}
   }
+})
+
+const padding = computed(() => {
+  if (!props.padding) {
+    return '0 25px'
+  }
+  return props.padding
 })
 
 const borderColor = computed(() => {
@@ -74,7 +82,7 @@ const textColor = computed(() => {
 
 <style lang="scss" module>
 .button {
-  padding: 0 25px;
+  padding: v-bind(padding);
   border: v-bind(borderColor);
   color: v-bind(textColor);
   background-color: transparent;

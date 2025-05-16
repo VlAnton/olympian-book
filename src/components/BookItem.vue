@@ -3,7 +3,7 @@ import { defineProps, defineEmits } from 'vue'
 import OlympianButton from './OlympianButton.vue'
 import { type BookItemCard } from '@/types/book-card'
 
-const props = defineProps<BookItemCard>()
+const props = defineProps<BookItemCard & { windowWidth: number }>()
 const emit = defineEmits(['addToCart'])
 const onClick = () => {
   emit('addToCart', props.title)
@@ -13,11 +13,37 @@ const onClick = () => {
 <template>
   <div class="book-card">
     <img class="book-card-cover" :src="props.cover" />
-    <p class="p2-raleway book-card-title">{{ props.title }}</p>
-    <p class="p3-raleway book-card-genre">{{ props.genre }}</p>
+    <p
+      class="p2-raleway book-card-title"
+      :class="{
+        'p3-raleway': props.windowWidth <= 929,
+      }"
+    >
+      {{ props.title }}
+    </p>
+    <p
+      class="p3-raleway book-card-genre"
+      :class="{
+        'p4-raleway': props.windowWidth <= 929,
+      }"
+    >
+      {{ props.genre }}
+    </p>
     <div class="book-card-footer">
-      <p class="p1-raleway book-card-price">{{ props.price }} р.</p>
-      <olympian-button color="black" size="md" style="height: 75px; width: 100%" @click="onClick">
+      <p
+        class="p1-raleway book-card-price"
+        :class="{
+          'p2-raleway': props.windowWidth <= 929,
+        }"
+      >
+        {{ props.price }} р.
+      </p>
+      <olympian-button
+        color="black"
+        :size="props.windowWidth <= 929 ? 'md' : 'lg'"
+        :padding="props.windowWidth <= 525 ? '0 15px' : undefined"
+        @click="onClick"
+      >
         Купить
       </olympian-button>
     </div>
@@ -30,21 +56,26 @@ const onClick = () => {
   flex-direction: column;
   align-items: center;
   padding: 25px;
-  min-width: 290px;
-  max-width: 420px;
-  min-height: 500px;
-  max-height: 650px;
+  width: 420px;
+  height: 650px;
   border: 3px solid $stroke-color;
 
   &-cover {
-    min-width: 132px;
-    max-width: 200px;
+    width: 200px;
     object-fit: cover;
     margin-bottom: 29px;
+
+    @media screen and (max-width: 525px) {
+      width: 132px;
+    }
   }
 
   &-title {
     height: 100px;
+
+    @media screen and (max-width: 525px) {
+      height: 80px;
+    }
   }
 
   &-genre {
@@ -63,6 +94,17 @@ const onClick = () => {
   &-price {
     width: 100%;
     height: 100%;
+    align-content: center;
+  }
+
+  @media screen and (max-width: 929px) {
+    width: 340px;
+    height: 585px;
+  }
+
+  @media screen and (max-width: 525px) {
+    width: 290px;
+    height: 500px;
   }
 }
 </style>
