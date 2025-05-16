@@ -64,9 +64,9 @@ onBeforeUnmount(() => {
     <header :class="$style.header">
       <h1
         :class="{
-          'h1-logo': windowWidth > 929,
-          'h2-logo': windowWidth <= 929,
-          'h3-logo': windowWidth <= 525,
+          'h2-logo': windowWidth > 929,
+          'h3-logo': windowWidth <= 929,
+          'h4-logo': windowWidth <= 525,
         }"
       >
         Olympian<br />Books

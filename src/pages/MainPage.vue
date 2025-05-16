@@ -71,6 +71,7 @@ onBeforeUnmount(() => {
           padding="0"
           type="submit"
           color="black"
+          :disabled="email.length === 0"
         >
           Отправить
         </olympian-button>

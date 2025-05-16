@@ -8,6 +8,7 @@ type OlympianInputProps = {
   modelValue: string
   pattern?: string
   size?: 'lg' | 'md'
+  required?: boolean
 }
 const props = defineProps<OlympianInputProps>()
 const emit = defineEmits(['update:modelValue'])
@@ -33,6 +34,7 @@ const value = computed({
         'olympian-input-md': size === 'md',
       }"
       id="input"
+      :required="required"
       :type="type"
       :placeholder="placeholder"
       v-model="value"

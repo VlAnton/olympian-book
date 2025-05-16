@@ -114,7 +114,7 @@ const props = defineProps<AboutCardsProps>()
   @media (max-width: 732px) {
     &-row {
       flex-wrap: wrap;
-      width: calc(100vw - 68px);
+      width: calc(100vw - 30px);
     }
 
     .about-card {
