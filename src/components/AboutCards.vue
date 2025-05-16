@@ -86,6 +86,7 @@ const props = defineProps<AboutCardsProps>()
     align-items: center;
     justify-content: center;
     text-align: center;
+    gap: 20px;
 
     &.about,
     &.harmony {
@@ -108,6 +109,7 @@ const props = defineProps<AboutCardsProps>()
       height: auto;
       padding: 0 50px;
       min-height: 550px;
+      gap: 36px;
     }
   }
 
@@ -122,6 +124,7 @@ const props = defineProps<AboutCardsProps>()
       min-height: 500px;
       aspect-ratio: auto;
       padding: 0 25px;
+      gap: 41px;
     }
 
     .about {

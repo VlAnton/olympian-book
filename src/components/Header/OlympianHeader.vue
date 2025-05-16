@@ -1,16 +1,12 @@
 <script setup lang="ts">
-import { ref, computed, onMounted, onBeforeUnmount } from 'vue'
+import { computed } from 'vue'
 import { useRoute } from 'vue-router'
+import { useWindowStore } from '@/store/window'
 import NavBar from '@/components/Header/NavBar.vue'
 import OlympianButton from '../OlympianButton.vue'
 
 const $route = useRoute()
-
-const windowWidth = ref(window.innerWidth)
-
-const updateWindowWidth = () => {
-  windowWidth.value = window.innerWidth
-}
+const windowStore = useWindowStore()
 
 const adsStyle = computed(() => {
   if ($route.name === 'home') {
@@ -33,14 +29,14 @@ const adText = computed(() => {
 })
 
 const btnSize = computed(() => {
-  if (windowWidth.value <= 525) {
+  if (windowStore.windowWidth <= 525) {
     return 'md'
   }
   return 'lg'
 })
 
 const btnStyle = computed(() => {
-  if (windowWidth.value <= 929) {
+  if (windowStore.windowWidth <= 929) {
     return {
       width: '245px',
       height: '50px',
@@ -50,13 +46,6 @@ const btnStyle = computed(() => {
     width: '420px',
   }
 })
-
-onMounted(() => {
-  window.addEventListener('resize', updateWindowWidth)
-})
-onBeforeUnmount(() => {
-  window.removeEventListener('resize', updateWindowWidth)
-})
 </script>
 
 <template>
@@ -64,14 +53,14 @@ onBeforeUnmount(() => {
     <header :class="$style.header">
       <h1
         :class="{
-          'h2-logo': windowWidth > 929,
-          'h3-logo': windowWidth <= 929,
-          'h4-logo': windowWidth <= 525,
+          'h2-logo': windowStore.windowWidth > 929,
+          'h3-logo': windowStore.windowWidth <= 929,
+          'h4-logo': windowStore.windowWidth <= 525,
         }"
       >
         Olympian<br />Books
       </h1>
-      <nav-bar :window-width="windowWidth" />
+      <nav-bar :window-width="windowStore.windowWidth" />
       <router-link to="cart">
         <img :class="$style['cart-icon']" src="@/assets/icons/cart.svg" />
       </router-link>
@@ -81,11 +70,11 @@ onBeforeUnmount(() => {
         :class="[
           $style['ad-books-promo'],
           {
-            'h1-forum': windowWidth > 929,
-            'h2-forum': windowWidth <= 929,
-            'h3-forum': windowWidth <= 525,
-            [$style['ad-books-promo-ipad-mini']]: windowWidth <= 929,
-            [$style['ad-books-promo-iphone-se']]: windowWidth <= 380,
+            'h1-forum': windowStore.windowWidth > 929,
+            'h2-forum': windowStore.windowWidth <= 929,
+            'h3-forum': windowStore.windowWidth <= 525,
+            [$style['ad-books-promo-ipad-mini']]: windowStore.windowWidth <= 929,
+            [$style['ad-books-promo-iphone-se']]: windowStore.windowWidth <= 380,
           },
         ]"
       >
@@ -95,8 +84,8 @@ onBeforeUnmount(() => {
         class="button-forum-lg"
         :style="btnStyle"
         :class="{
-          'button-forum-md': windowWidth <= 929,
-          'button-forum-sm': windowWidth <= 525,
+          'button-forum-md': windowStore.windowWidth <= 929,
+          'button-forum-sm': windowStore.windowWidth <= 525,
         }"
         :size="btnSize"
         @click="$router.push('/catalog')"

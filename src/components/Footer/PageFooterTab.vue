@@ -37,6 +37,7 @@ onBeforeUnmount(() => {
         'tab-disabled': props.disabled,
       },
     ]"
+    @mousedown="isMouseDown = true"
   >
     <router-link
       :to="props.tab.link"
@@ -71,11 +72,11 @@ onBeforeUnmount(() => {
   }
 
   &-pressed {
-    border-bottom: 3px solid $bg-color-secondary;
+    border-bottom: 3px solid $stroke-color !important;
     transition: border-color 0.3s ease;
 
     &-text {
-      color: $bg-color-secondary;
+      color: $text-color-primary !important;
     }
   }
 

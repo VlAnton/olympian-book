@@ -1,26 +1,16 @@
 <script setup lang="ts">
-import { ref, computed, onMounted, onBeforeUnmount } from 'vue'
+import { computed } from 'vue'
 import { useRoute } from 'vue-router'
 import tabs from '@/constants/tabs'
+import { useWindowStore } from '@/store/window'
 import PageFooterTab from '@/components/Footer/PageFooterTab.vue'
 
-const windowWidth = ref(window.innerWidth)
+const windowStore = useWindowStore()
 
 const $route = useRoute()
 
 const currentTab = computed(() => {
   return tabs.find((tab) => $route.fullPath === tab.link)
-})
-
-const updateWindowWidth = () => {
-  windowWidth.value = window.innerWidth
-}
-
-onMounted(() => {
-  window.addEventListener('resize', updateWindowWidth)
-})
-onBeforeUnmount(() => {
-  window.removeEventListener('resize', updateWindowWidth)
 })
 </script>
 
@@ -29,19 +19,32 @@ onBeforeUnmount(() => {
     <div class="left-part">
       <h1
         :style="{
-          width: windowWidth > 1306 ? '310px' : windowWidth <= 762 ? '190px' : '160px',
+          width:
+            windowStore.windowWidth > 1306
+              ? '310px'
+              : windowStore.windowWidth <= 762
+              ? '190px'
+              : '160px',
         }"
         :class="{
-          'h1-logo': windowWidth > 1306,
-          'h2-logo': windowWidth <= 1306,
+          'h1-logo': windowStore.windowWidth > 1306,
+          'h2-logo': windowStore.windowWidth <= 1306,
         }"
       >
         Olympian<br />Books
       </h1>
       <p
-        :class="{ 'p2-raleway': windowWidth > 929, 'p3-raleway': windowWidth <= 929 }"
+        :class="{
+          'p2-raleway': windowStore.windowWidth > 929,
+          'p3-raleway': windowStore.windowWidth <= 929,
+        }"
         :style="{
-          width: windowWidth <= 1306 ? '160px' : windowWidth <= 762 ? '190px' : '310px',
+          width:
+            windowStore.windowWidth <= 1306
+              ? '160px'
+              : windowStore.windowWidth <= 762
+              ? '190px'
+              : '310px',
           textAlign: 'left',
         }"
       >
@@ -52,7 +55,7 @@ onBeforeUnmount(() => {
       <page-footer-tab
         v-for="tab in tabs"
         :key="tab.link"
-        :window-width="windowWidth"
+        :window-width="windowStore.windowWidth"
         :tab="tab"
         :is-active="currentTab?.link === tab.link"
         :disabled="tab.link === '/cart'"

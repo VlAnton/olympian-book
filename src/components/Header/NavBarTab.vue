@@ -70,7 +70,7 @@ onBeforeUnmount(() => {
   }
 
   &-pressed {
-    border-bottom: 3px solid $bg-color-secondary;
+    border-bottom: 3px solid $bg-color-secondary !important;
     transition: border-color 0.3s ease;
 
     &-text {
