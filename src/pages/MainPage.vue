@@ -1,54 +1,45 @@
 <script lang="ts" setup>
-import { ref, onMounted, onBeforeUnmount } from 'vue'
+import { ref } from 'vue'
 import MainPageSlider from '@/components/MainPageSlider.vue'
 import AboutCards from '@/components/AboutCards.vue'
 import books from '@/constants/books'
+import { useWindowStore } from '@/store/window'
 import OlympianInput from '@/components/OlympianInput.vue'
 import OlympianButton from '@/components/OlympianButton.vue'
 
-const windowWidth = ref(window.innerWidth)
+const windowStore = useWindowStore()
+
 const email = ref('')
-
-const updateWindowWidth = () => {
-  windowWidth.value = window.innerWidth
-}
-
-onMounted(() => {
-  window.addEventListener('resize', updateWindowWidth)
-})
-onBeforeUnmount(() => {
-  window.removeEventListener('resize', updateWindowWidth)
-})
 </script>
 
 <template>
   <div class="page">
     <h1
       :class="{
-        'h2-forum': windowWidth > 929,
-        'h3-forum': windowWidth <= 929,
-        'h4-forum': windowWidth <= 525,
+        'h2-forum': windowStore.windowWidth > 929,
+        'h3-forum': windowStore.windowWidth <= 929,
+        'h4-forum': windowStore.windowWidth <= 525,
       }"
     >
       Горячие новинки
     </h1>
-    <main-page-slider :items="books" :window-width="windowWidth" />
-    <about-cards :window-width="windowWidth" />
+    <main-page-slider :items="books" :window-width="windowStore.windowWidth" />
+    <about-cards :window-width="windowStore.windowWidth" />
 
     <div :class="$style['page-footer']">
       <div :class="$style['page-footer-text']">
         <h3
           :class="{
-            'h3-forum': windowWidth > 929,
-            'h4-forum': windowWidth <= 929,
+            'h3-forum': windowStore.windowWidth > 929,
+            'h4-forum': windowStore.windowWidth <= 929,
           }"
         >
           Хотите знать о книгах всё?
         </h3>
         <p
           :class="{
-            'p2-raleway': windowWidth > 929,
-            'p4-raleway': windowWidth <= 929,
+            'p2-raleway': windowStore.windowWidth > 929,
+            'p4-raleway': windowStore.windowWidth <= 929,
           }"
         >
           Подпишитесь на нашу новостную рассылку
@@ -58,16 +49,16 @@ onBeforeUnmount(() => {
         <olympian-input
           style="width: 100%"
           type="email"
-          :size="windowWidth > 929 ? 'lg' : 'md'"
+          :size="windowStore.windowWidth > 929 ? 'lg' : 'md'"
           pattern=".+@.+\..+"
           v-model="email"
         />
         <olympian-button
           :style="{
-            width: windowWidth > 929 ? '310px' : '220px',
-            height: windowWidth > 929 ? '60px' : '50px',
+            width: windowStore.windowWidth > 929 ? '310px' : '220px',
+            height: windowStore.windowWidth > 929 ? '60px' : '50px',
           }"
-          :size="windowWidth > 929 ? 'md' : 'sm'"
+          :size="windowStore.windowWidth > 929 ? 'md' : 'sm'"
           padding="0"
           type="submit"
           color="black"
