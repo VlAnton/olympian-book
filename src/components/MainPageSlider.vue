@@ -48,7 +48,7 @@ const goToSlide = (index: number) => {
   <div class="slider">
     <div class="slider-window">
       <div v-if="!showSliderControls" class="slider-chevron-wrapper absolute-left">
-        <img v-show="currentSlide > 0" src="@/assets/icons/chevron-left.svg" @click="prevSlide" />
+        <img src="@/assets/icons/chevron-left.svg" @click="prevSlide" />
       </div>
       <div
         class="slider-track"
@@ -68,11 +68,7 @@ const goToSlide = (index: number) => {
         </div>
       </div>
       <div v-if="!showSliderControls" class="slider-chevron-wrapper absolute-right">
-        <img
-          v-if="currentSlide < totalSlides - 1"
-          src="@/assets/icons/chevron-right.svg"
-          @click="nextSlide"
-        />
+        <img src="@/assets/icons/chevron-right.svg" @click="nextSlide" />
       </div>
     </div>
     <div v-if="showSliderControls" class="slider-controls">
