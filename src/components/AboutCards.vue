@@ -1,5 +1,7 @@
 <script lang="ts" setup>
 import { defineProps } from 'vue'
+import bookImage from '@/assets/images/backgrounds/book.jpg'
+import statueImage from '@/assets/images/backgrounds/statue.jpg'
 
 type AboutCardsProps = {
   windowWidth: number
@@ -11,10 +13,7 @@ const props = defineProps<AboutCardsProps>()
 <template>
   <div class="about-cards">
     <div class="about-cards-row">
-      <div
-        class="about-card image-book"
-        style="background-image: url(/src/assets/images/backgrounds/book.jpg)"
-      />
+      <div class="about-card image-book" :style="`background-image: url(${bookImage})`" />
       <div class="about-card about">
         <h2
           :class="{
@@ -59,10 +58,7 @@ const props = defineProps<AboutCardsProps>()
           нового о книгах и писателях.
         </p>
       </div>
-      <div
-        class="about-card image-statue"
-        style="background-image: url(/src/assets/images/backgrounds/statue.jpg)"
-      />
+      <div class="about-card image-statue" :style="`background-image: url(${statueImage})`" />
     </div>
   </div>
 </template>
