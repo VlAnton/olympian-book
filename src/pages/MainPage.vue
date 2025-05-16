@@ -1,6 +1,7 @@
 <script lang="ts" setup>
 import { ref, onMounted, onBeforeUnmount } from 'vue'
 import MainPageSlider from '@/components/MainPageSlider.vue'
+import AboutCards from '@/components/AboutCards.vue'
 import books from '@/constants/books'
 
 const windowWidth = ref(window.innerWidth)
@@ -29,6 +30,7 @@ onBeforeUnmount(() => {
       Горячие новинки
     </h1>
     <main-page-slider :items="books" :window-width="windowWidth" />
+    <about-cards :window-width="windowWidth" />
   </div>
 </template>
 
