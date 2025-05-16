@@ -26,12 +26,16 @@ const totalSlides = computed(() => Math.ceil(props.items.length / cardsPerSlide.
 const nextSlide = () => {
   if (currentSlide.value < totalSlides.value - 1) {
     currentSlide.value++
+  } else {
+    currentSlide.value = 0
   }
 }
 
 const prevSlide = () => {
   if (currentSlide.value > 0) {
     currentSlide.value--
+  } else {
+    currentSlide.value = totalSlides.value - 1
   }
 }
 
@@ -73,7 +77,7 @@ const goToSlide = (index: number) => {
     </div>
     <div v-if="showSliderControls" class="slider-controls">
       <div class="slider-chevron-wrapper">
-        <img v-show="currentSlide > 0" src="@/assets/icons/chevron-left.svg" @click="prevSlide" />
+        <img src="@/assets/icons/chevron-left.svg" @click="prevSlide" />
       </div>
       <div v-if="showDots" class="dots">
         <span
@@ -84,11 +88,7 @@ const goToSlide = (index: number) => {
         />
       </div>
       <div class="slider-chevron-wrapper">
-        <img
-          v-if="currentSlide < totalSlides - 1"
-          src="@/assets/icons/chevron-right.svg"
-          @click="nextSlide"
-        />
+        <img src="@/assets/icons/chevron-right.svg" @click="nextSlide" />
       </div>
     </div>
   </div>
