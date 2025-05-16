@@ -6,6 +6,7 @@ type ButtonProps = {
   size: 'lg' | 'md' | 'sm'
   disabled?: boolean
   padding?: string
+  type?: 'button' | 'submit' | 'reset'
 }
 
 const props = defineProps<ButtonProps>()
@@ -67,13 +68,15 @@ const textColor = computed(() => {
     :class="[
       $style.button,
       {
-        [$style['button-black-pressed']]: isMouseDown && props.color === 'black',
-        'button-forum-md': props.size === 'md',
-        'button-forum-lg': props.size === 'lg',
+        [$style['button-black-pressed']]: isMouseDown && color === 'black',
+        'button-forum-md': size === 'md',
+        'button-forum-lg': size === 'lg',
+        'button-forum-sm': size === 'sm',
       },
     ]"
+    :type="type ? type : 'button'"
     :style="sizeStyles"
-    :disabled="props.disabled"
+    :disabled="disabled"
     @mousedown="isMouseDown = true"
   >
     <slot />

@@ -1,24 +1,21 @@
 <script setup lang="ts">
-import { ref, computed, watch, defineProps } from 'vue'
+import { ref, computed, defineProps } from 'vue'
 import { useRoute } from 'vue-router'
 import tabs from '@/constants/tabs'
+import NavBarTab from '@/components/Header/NavBarTab.vue'
 
 type NavBarProps = {
   windowWidth: number
 }
 
 const props = defineProps<NavBarProps>()
+const $route = useRoute()
 
 const isTabsOpened = ref(false)
 
-const $route = useRoute()
-
-watch(
-  () => $route.fullPath,
-  () => {
-    isTabsOpened.value = false
-  }
-)
+const currentTab = computed(() => {
+  return tabs.find((tab) => $route.fullPath === tab.link)
+})
 
 const iconClass = computed(() => {
   if (props.windowWidth <= 525) {
@@ -46,20 +43,14 @@ const iconClass = computed(() => {
         <li @click="isTabsOpened = false">
           <img class="nav-bar-icon" :class="iconClass" src="@/assets/icons/chevron-up.svg" />
         </li>
-        <li v-for="tab in tabs" :key="tab.link">
-          <router-link
-            :to="tab.link"
-            :class="[
-              'link-forum-lg',
-              {
-                'link-forum-md': windowWidth <= 929,
-                'link-forum-sm': windowWidth <= 525,
-              },
-            ]"
-          >
-            {{ tab.title }}
-          </router-link>
-        </li>
+        <nav-bar-tab
+          v-for="tab in tabs"
+          :key="tab.link"
+          :window-width="windowWidth"
+          :tab="tab"
+          :is-active="currentTab?.link === tab.link"
+          :disabled="tab.link === '/cart'"
+        />
       </ul>
     </transition>
   </nav>

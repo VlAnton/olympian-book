@@ -23,19 +23,19 @@ const cardsPerSlide = computed(() => {
 const showDots = computed(() => props.windowWidth > 1024)
 const totalSlides = computed(() => Math.ceil(props.items.length / cardsPerSlide.value))
 
-function nextSlide() {
+const nextSlide = () => {
   if (currentSlide.value < totalSlides.value - 1) {
     currentSlide.value++
   }
 }
 
-function prevSlide() {
+const prevSlide = () => {
   if (currentSlide.value > 0) {
     currentSlide.value--
   }
 }
 
-function goToSlide(index: number) {
+const goToSlide = (index: number) => {
   currentSlide.value = index
 }
 </script>
