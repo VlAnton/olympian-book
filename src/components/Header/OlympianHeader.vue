@@ -3,17 +3,19 @@ import { computed } from 'vue'
 import { useRoute } from 'vue-router'
 import { useWindowStore } from '@/store/window'
 import NavBar from '@/components/Header/NavBar.vue'
-import OlympianButton from '../OlympianButton.vue'
+import OlympianButton from '@/components/OlympianButton.vue'
+import bgImage from '@/assets/images/backgrounds/MainPage.webp'
+import catalogImage from '@/assets/images/backgrounds/Catalog.webp'
 
 const $route = useRoute()
 const windowStore = useWindowStore()
 
 const adsStyle = computed(() => {
   if ($route.name === 'home') {
-    return { backgroundImage: "url('/src/assets/images/backgrounds/MainPage.webp')" }
+    return { backgroundImage: `url(${bgImage})` }
   }
   if ($route.name === 'catalog') {
-    return { backgroundImage: "url('/src/assets/images/backgrounds/Catalog.webp')" }
+    return { backgroundImage: `url(${catalogImage})` }
   }
   return { backgroundColor: '#1596c1' }
 })
