@@ -8,7 +8,7 @@ const $route = useRoute()
 
 const windowWidth = ref(window.innerWidth)
 
-function updateWindowWidth() {
+const updateWindowWidth = () => {
   windowWidth.value = window.innerWidth
 }
 

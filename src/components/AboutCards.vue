@@ -71,8 +71,6 @@ const props = defineProps<AboutCardsProps>()
 .about-cards {
   display: flex;
   flex-direction: column;
-  margin-top: 140px;
-  margin-bottom: 140px;
 
   &-row {
     display: flex;
@@ -104,9 +102,6 @@ const props = defineProps<AboutCardsProps>()
   }
 
   @media (max-width: 1173px) {
-    margin-top: 160px;
-    margin-bottom: 160px;
-
     .about-card {
       aspect-ratio: auto;
       width: 50%;
@@ -117,9 +112,6 @@ const props = defineProps<AboutCardsProps>()
   }
 
   @media (max-width: 732px) {
-    margin-top: 80px;
-    margin-bottom: 70px;
-
     &-row {
       flex-wrap: wrap;
       width: calc(100vw - 68px);
