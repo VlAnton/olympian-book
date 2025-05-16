@@ -81,16 +81,12 @@ const iconClass = computed(() => {
     background-color: $bg-color-primary;
 
     @media screen and (max-width: 929px) {
-      & {
-        padding: 57px 70px 70px;
-        margin-top: 274px;
-      }
+      padding: 57px 70px 70px;
+      margin-top: 274px;
     }
     @media screen and (max-width: 525px) {
-      & {
-        padding: 63px 65px 70px;
-        margin-top: 280px;
-      }
+      padding: 63px 65px 70px;
+      margin-top: 280px;
     }
   }
 
